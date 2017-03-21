@@ -34,26 +34,11 @@ public class RecipesActivity extends AppCompatActivity {
     public void initializeData(){
         ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
 
+        ingreds.add(new Ingredient("Bread"));
+        ingreds.add(new Ingredient("Butter"));
 
-
-        ingreds.add(new Ingredient("thing"));
-        ingreds.add(new Ingredient("thing2"));
-
-
-        recipes.add(new Recipe("Test Recipe 1", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 2", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 3", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 4", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 5", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 6", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 7", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 8", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 9", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 10", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 11", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 12", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 13", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
-        recipes.add(new Recipe("Test Recipe 14", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
+        recipes.add(new Recipe("Toast", "Toast bread, spread butter over it.", ingreds, R.drawable.toast));
+        recipes.add(new Recipe("Toast2", "Toast bread, spread butter over it.", ingreds, R.drawable.recipe_placeholder));
     }
 
 
@@ -67,6 +52,7 @@ public class RecipesActivity extends AppCompatActivity {
         intent.putExtra("recipeName", r.getName());
         intent.putExtra("recipeMethod", r.getMethod());
         intent.putExtra("recipeIngredients", r.getIngredients());
+        intent.putExtra("recipeImage", r.getPhotoId());
         //made ingredient class serializable so it could be passed in extras. May need to cast ingredients back to serializable when I get them back in details activity.
         startActivity(intent);
     }

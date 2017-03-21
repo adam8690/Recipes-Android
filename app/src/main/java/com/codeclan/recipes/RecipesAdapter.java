@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -30,6 +31,9 @@ public class RecipesAdapter extends ArrayAdapter<Recipe>{
         TextView recipeName = (TextView)listItemView.findViewById(R.id.recipe_name);
         recipeName.setText(currentRecipe.getName());
         recipeName.setTag(currentRecipe);
+
+        ImageView recipeImage = (ImageView)listItemView.findViewById(R.id.thumbnail);
+        recipeImage.setImageResource(currentRecipe.getPhotoId());
 
         return listItemView;
     }

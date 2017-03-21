@@ -44,6 +44,14 @@ public class Recipe {
         this.ingredients = ingredients;
     }
 
+    public int getPhotoId() {
+        return photoId;
+    }
+
+    public void setPhotoId(int photoId) {
+        this.photoId = photoId;
+    }
+
     public void addListOfIngredients(ArrayList<Ingredient> list) {
         for (Ingredient ingredient : list) {
             this.ingredients.add(ingredient);
