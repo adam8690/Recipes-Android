@@ -1,5 +1,6 @@
 package com.codeclan.recipes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -8,7 +9,7 @@ import java.util.List;
  * Created by Adam Baxter on 21/03/2017.
  */
 
-public class Ingredient {
+public class Ingredient implements Serializable{
 
     private String name;
 

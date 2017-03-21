@@ -1,5 +1,6 @@
 package com.codeclan.recipes;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -36,6 +37,8 @@ public class RecipesActivity extends AppCompatActivity {
 
 
         ingreds.add(new Ingredient("thing"));
+        ingreds.add(new Ingredient("thing2"));
+
 
         recipes.add(new Recipe("Test Recipe 1", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
         recipes.add(new Recipe("Test Recipe 2", "do stuff", ingreds, R.mipmap.recipe_placeholder_colour));
@@ -56,9 +59,16 @@ public class RecipesActivity extends AppCompatActivity {
 
     public void nameClicked(View textView){
 
+
         Recipe r = (Recipe)textView.getTag();
 
         Log.d("Name clicked", r.getName());
+        Intent intent = new Intent(this, RecipeDetailsActivity.class);
+        intent.putExtra("recipeName", r.getName());
+        intent.putExtra("recipeMethod", r.getMethod());
+        intent.putExtra("recipeIngredients", r.getIngredients());
+        //made ingredient class serializable so it could be passed in extras. May need to cast ingredients back to serializable when I get them back in details activity.
+        startActivity(intent);
     }
 
 

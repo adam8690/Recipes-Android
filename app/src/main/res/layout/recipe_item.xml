@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" android:padding="16dp">
+    android:layout_height="match_parent" android:padding="16dp"
+    >
 
     <TextView
         android:id="@+id/ranking"
@@ -22,9 +23,10 @@
         <TextView
             android:id="@+id/recipe_name"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:textSize="18dp"
-            android:onClick="nameClicked"/>
+            android:onClick="nameClicked"
+            />
 
 
     </LinearLayout>
