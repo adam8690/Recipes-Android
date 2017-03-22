@@ -34,6 +34,7 @@ public class RecipesAdapter extends ArrayAdapter<Recipe>{
 
         ImageView recipeImage = (ImageView)listItemView.findViewById(R.id.thumbnail);
         recipeImage.setImageResource(currentRecipe.getPhotoId());
+        recipeImage.setTag(currentRecipe);
 
         return listItemView;
     }

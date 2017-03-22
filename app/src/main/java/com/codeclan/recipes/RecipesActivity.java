@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -35,10 +36,8 @@ public class RecipesActivity extends AppCompatActivity {
 
         setContentView(R.layout.recipes_list);
 
-//        initializeData();
 
-
-//        get existing list of recipes from shared prefs or create if doesn't exist
+//      get existing list of recipes from shared prefs or create if doesn't exist
         SharedPreferences sharedPref = getSharedPreferences(RECIPES, Context.MODE_PRIVATE);
 
 //        get arraylist of saved recipes from shared preferences.
@@ -49,7 +48,9 @@ public class RecipesActivity extends AppCompatActivity {
 //        convert returned string to Arraylist of recipes
         TypeToken<ArrayList<Recipe>> recipeArrayList = new TypeToken<ArrayList<Recipe>>(){};
         recipes = gson.fromJson(savedRecipes, recipeArrayList.getType());
-        
+
+
+//        pass recipes arraylist from saved preferences to adapter to create listview
         RecipesAdapter recipesAdapter = new RecipesAdapter(this, recipes);
 
         ListView listView = (ListView) findViewById(R.id.list);
@@ -60,11 +61,7 @@ public class RecipesActivity extends AppCompatActivity {
         setSupportActionBar(myToolbar);
 
         //        register list items for context menu for recipes
-
-        View view = findViewById(R.id.list);
-        registerForContextMenu(view);
-
-
+        registerForContextMenu(listView);
 
     }
 
@@ -78,10 +75,46 @@ public class RecipesActivity extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item){
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+//        position of item in list. Staring at zero pass this to get the recipe object from the arraylist.
+
+        int index = info.position;
+        Log.d("context item pos:", String.valueOf(index));
+
         switch (item.getItemId()){
             case R.id.delete:
-            Log.d("Context Item Selected:", "delete");
+//                Get recipe being selected
+                Recipe selectedRecipe = recipes.get(index);
+
+//                use getName to check correct recipe is being targeted for deletion.
+            Log.d("Recipe for deletion:", selectedRecipe.getName());
+
 //            add delete stuff here don't know if the correct recipe object can be passed here yet.
+//                get saved prefs arraylist
+
+                //      get existing list of recipes from shared prefs or create if doesn't exist
+                SharedPreferences sharedPref = getSharedPreferences(RECIPES, Context.MODE_PRIVATE);
+
+                String savedRecipes = sharedPref.getString("mySavedRecipes", new ArrayList<Recipe>().toString());
+                Gson gson = new Gson();
+
+//        convert returned string to Arraylist of recipes
+                TypeToken<ArrayList<Recipe>> recipeArrayList = new TypeToken<ArrayList<Recipe>>(){};
+                recipes = gson.fromJson(savedRecipes, recipeArrayList.getType());
+
+//                delete from index
+                recipes.remove(index);
+
+//                save arraylist minus deleted recipe to saved prefs.
+                SharedPreferences.Editor editor = sharedPref.edit();
+
+                editor.putString("mySavedRecipes", gson.toJson(recipes));
+                editor.apply();
+
+//              open new recipes list screen to refresh list once item has been deleted.
+                Intent intent = new Intent(this, RecipesActivity.class);
+                startActivity(intent);
+                Toast.makeText(this, "Recipe Deleted!", Toast.LENGTH_LONG).show();
+
             return true;
             case R.id.edit:
             Log.d("Context Item Selected:", "edit");
