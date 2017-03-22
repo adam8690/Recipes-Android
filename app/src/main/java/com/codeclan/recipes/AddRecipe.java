@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
@@ -24,9 +25,11 @@ import static com.codeclan.recipes.Ingredient.convertListStringToArrayList;
 public class AddRecipe extends AppCompatActivity {
 
     public static final String RECIPES = "savedRecipes";
+    ArrayList<Recipe> recipes;
     EditText inputRecipeName;
     EditText inputMethod;
     EditText inputIngredients;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,21 +84,37 @@ public class AddRecipe extends AppCompatActivity {
 //        need to create arraylist of ingredients. Using my ingredients method.
         ArrayList<Ingredient> ingreds = convertListStringToArrayList(ingredients);
 
+
 //create new recipe object with input details
         Recipe recipe = new Recipe(name, method, ingreds, R.drawable.recipe_placeholder);
         Log.d("Saved Recipe Object nam", recipe.getName());
         Log.d("Saved Recipe Object met", recipe.getMethod());
         Log.d("Saved Recipe Object ing", recipe.getIngredients().get(0).getName());
 
-//   pass this object to shared preferences to be saved
+//        get existing list of recipes from shared prefs or create if doesn't exist
         SharedPreferences sharedPref = getSharedPreferences(RECIPES, Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
 
+//      second argument is the default value and will be returned if empty.
+        String savedRecipes = sharedPref.getString("mySavedRecipes", new ArrayList<Recipe>().toString());
+        Log.d("STUFFF", savedRecipes);
         Gson gson = new Gson();
 
-        editor.putString("savedRecipes", gson.toJson(recipe));
+//        convert returned string to Arraylist of recipes
+        TypeToken<ArrayList<Recipe>> recipeArrayList = new TypeToken<ArrayList<Recipe>>(){};
+        ArrayList<Recipe> myRecipes = gson.fromJson(savedRecipes, recipeArrayList.getType());
+
+//        add new recipe to arraylist and log to see if it gets bigger!
+        Log.d("recipes array size:", "" + myRecipes.size());
+        myRecipes.add(recipe);
+        Log.d("recipes new size:", "" + myRecipes.size());
+
+//   pass this object to shared preferences to be saved
+        SharedPreferences.Editor editor = sharedPref.edit();
+
+        editor.putString("mySavedRecipes", gson.toJson(myRecipes));
         editor.apply();
-//Recipe is saved but can I save multiple recipes and get them all back on starting the app?
+
+
         Toast.makeText(this, "Recipe Saved!", Toast.LENGTH_LONG).show();
 
 //        take user back to recipes list.
