@@ -27,7 +27,7 @@
         android:id="@+id/enter_recipe_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter Recipe Name"
+        android:hint="@string/enter_recipe_name"
         android:textSize="30dp"
         android:padding="10dp"/>
 
@@ -36,7 +36,7 @@
         android:id="@+id/enter_ingredients"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter Ingredients"
+        android:hint="@string/enter_ingredients"
         android:textSize="20dp"
         android:padding="10dp"
         />
@@ -45,7 +45,7 @@
         android:id="@+id/enter_method"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Enter Method"
+        android:hint="@string/enter_method"
         android:textSize="20dp"
         android:padding="10dp" />
 

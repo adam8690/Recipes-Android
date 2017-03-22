@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Recipes</string>
     <string name="recipe_name"></string>
+    <string name="enter_recipe_name">Enter Recipe Name</string>
+    <string name="enter_method">Enter Method Here</string>
+    <string name="enter_ingredients">Enter ingredients here separated by commas.</string>
 </resources>
