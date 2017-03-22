@@ -25,6 +25,7 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 import static com.codeclan.recipes.AddRecipe.RECIPES;
+import static com.codeclan.recipes.Ingredient.convertArrayListToCommaSeparatedString;
 
 public class RecipesActivity extends AppCompatActivity {
 
@@ -128,9 +129,10 @@ public class RecipesActivity extends AppCompatActivity {
                 editIntent.putExtra("name", selectedRecipe.getName());
                 editIntent.putExtra("method", selectedRecipe.getMethod());
                 ArrayList<Ingredient> ingredients = selectedRecipe.getIngredients();
-//                TODO create method to convert ingredients to a string with each separated by a comma then pass this as an extra also
-//                convertIngredientsArrayListToCommaSeparatedString(ingredients);
-//                editIntent.putExtra("ingredients", ingredientsCommaString);
+
+//              use my method to convert ingredients to a string with each separated by a comma then pass this as an extra also
+                String ingredientsCommaString = convertArrayListToCommaSeparatedString(ingredients);
+                editIntent.putExtra("ingredients", ingredientsCommaString);
                 startActivity(editIntent);
 
             return true;
