@@ -5,10 +5,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -37,6 +39,35 @@ public class RecipesActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+        //        register list items for context menu for recipes
+
+        View view = findViewById(R.id.list);
+        registerForContextMenu(view);
+
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo){
+        super.onCreateContextMenu(menu, v, menuInfo);
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.context_menu, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item){
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        switch (item.getItemId()){
+            case R.id.delete:
+            Log.d("Context Item Selected:", "delete");
+//            add delete stuff here don't know if the correct recipe object can be passed here yet.
+            return true;
+            case R.id.edit:
+            Log.d("Context Item Selected:", "edit");
+//            add intent to edit view here. Likewise with the recipe object.
+            return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
     }
 
     @Override
