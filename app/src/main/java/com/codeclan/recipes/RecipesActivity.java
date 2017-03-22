@@ -1,6 +1,8 @@
 package com.codeclan.recipes;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,9 +16,14 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+
+import static com.codeclan.recipes.AddRecipe.RECIPES;
 
 public class RecipesActivity extends AppCompatActivity {
 
@@ -28,8 +35,21 @@ public class RecipesActivity extends AppCompatActivity {
 
         setContentView(R.layout.recipes_list);
 
-        initializeData();
+//        initializeData();
 
+
+//        get existing list of recipes from shared prefs or create if doesn't exist
+        SharedPreferences sharedPref = getSharedPreferences(RECIPES, Context.MODE_PRIVATE);
+
+//        get arraylist of saved recipes from shared preferences.
+        String savedRecipes = sharedPref.getString("mySavedRecipes", new ArrayList<Recipe>().toString());
+        Log.d("STUFFF", savedRecipes);
+        Gson gson = new Gson();
+
+//        convert returned string to Arraylist of recipes
+        TypeToken<ArrayList<Recipe>> recipeArrayList = new TypeToken<ArrayList<Recipe>>(){};
+        recipes = gson.fromJson(savedRecipes, recipeArrayList.getType());
+        
         RecipesAdapter recipesAdapter = new RecipesAdapter(this, recipes);
 
         ListView listView = (ListView) findViewById(R.id.list);
@@ -43,6 +63,8 @@ public class RecipesActivity extends AppCompatActivity {
 
         View view = findViewById(R.id.list);
         registerForContextMenu(view);
+
+
 
     }
 
