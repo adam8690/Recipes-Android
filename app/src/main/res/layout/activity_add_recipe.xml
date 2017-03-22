@@ -1,9 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.codeclan.recipes.AddRecipe">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.codeclan.recipes.AddRecipe"
+    android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:title="@string/app_name"
+        />
+
+    <EditText
+        android:id="@+id/enter_recipe_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter Recipe Name"
+        android:textSize="30dp"
+        android:padding="10dp"/>
+
+
+    <EditText
+        android:id="@+id/enter_ingredients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter Ingredients"
+        android:textSize="20dp"
+        android:padding="10dp"
+        />
+
+    <EditText
+        android:id="@+id/enter_method"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Enter Method"
+        android:textSize="20dp"
+        android:padding="10dp" />
+
+        <Button
+            android:id="@+id/save_recipe"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:onClick="onSaveButtonClicked"/>
+
+
+    </LinearLayout>
+
+</ScrollView>
