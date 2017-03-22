@@ -78,12 +78,15 @@ public class RecipesActivity extends AppCompatActivity {
 //        position of item in list. Staring at zero pass this to get the recipe object from the arraylist.
 
         int index = info.position;
+        Recipe selectedRecipe = recipes.get(index);
+
+
         Log.d("context item pos:", String.valueOf(index));
 
         switch (item.getItemId()){
             case R.id.delete:
 //                Get recipe being selected
-                Recipe selectedRecipe = recipes.get(index);
+
 
 //                use getName to check correct recipe is being targeted for deletion.
             Log.d("Recipe for deletion:", selectedRecipe.getName());
@@ -111,14 +114,25 @@ public class RecipesActivity extends AppCompatActivity {
                 editor.apply();
 
 //              open new recipes list screen to refresh list once item has been deleted.
-                Intent intent = new Intent(this, RecipesActivity.class);
-                startActivity(intent);
+                Intent deleteIntent = new Intent(this, RecipesActivity.class);
+                startActivity(deleteIntent);
                 Toast.makeText(this, "Recipe Deleted!", Toast.LENGTH_LONG).show();
 
             return true;
             case R.id.edit:
             Log.d("Context Item Selected:", "edit");
 //            add intent to edit view here. Likewise with the recipe object.
+
+
+                Intent editIntent = new Intent(this, EditRecipe.class);
+                editIntent.putExtra("name", selectedRecipe.getName());
+                editIntent.putExtra("method", selectedRecipe.getMethod());
+                ArrayList<Ingredient> ingredients = selectedRecipe.getIngredients();
+//                TODO create method to convert ingredients to a string with each separated by a comma then pass this as an extra also
+//                convertIngredientsArrayListToCommaSeparatedString(ingredients);
+//                editIntent.putExtra("ingredients", ingredientsCommaString);
+                startActivity(editIntent);
+
             return true;
             default:
                 return super.onContextItemSelected(item);

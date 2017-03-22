@@ -41,5 +41,20 @@ public class Ingredient implements Serializable{
 
     }
 
+    public static String convertArrayListToCommaSeparatedString(ArrayList<Ingredient> ingredients) {
+        String ingredientString;
+        String string;
 
+        if (ingredients.size() == 0){ return ""; }
+        else {
+            string = ingredients.get(0).getName().toString();
+
+            for (int i = 1; i < ingredients.size();
+                 i++) {
+                ingredientString = ingredients.get(i).getName().toString();
+                string += ", " + ingredientString;
+            }
+        }
+    return string;
+    }
 }

@@ -5,6 +5,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 
+import static com.codeclan.recipes.Ingredient.convertArrayListToCommaSeparatedString;
 import static com.codeclan.recipes.Ingredient.convertListStringToArrayList;
 import static org.junit.Assert.assertEquals;
 
@@ -34,5 +35,19 @@ public class IngredientTest {
         assertEquals("butter", ary.get(1).getName());
     }
 
+    @Test
+    public void testConvertArrayListToCommaSepString(){
+//        test empty array
+        ArrayList<Ingredient> ingreds = new ArrayList<Ingredient>();
+        assertEquals("", convertArrayListToCommaSeparatedString(ingreds));
+//        test array with one item
+        ingreds.add(ingredient);
+        assertEquals("Bread", convertArrayListToCommaSeparatedString(ingreds));
+//        test array with multiple items
+        ingreds.add(ingredient);
+        ingreds.add(ingredient);
+        ingreds.add(ingredient);
+        assertEquals("Bread, Bread, Bread, Bread", convertArrayListToCommaSeparatedString(ingreds));
+    }
 
 }

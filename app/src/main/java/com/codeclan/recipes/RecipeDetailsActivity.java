@@ -47,13 +47,13 @@ public class RecipeDetailsActivity extends AppCompatActivity {
         recipeTitle.setText(name);
 
         TextView recipeMethod = (TextView) findViewById(R.id.recipe_method);
-        recipeMethod.setText(method);
+        recipeMethod.setText("Method:\n\n" + method);
 
 //converting ingredients arraylist to string for display
         String ingredientsString = createIngredientsString(ingredients);
 
         TextView recipeIngredients = (TextView) findViewById(R.id.recipe_ingredients);
-        recipeIngredients.setText(ingredientsString);
+        recipeIngredients.setText("Ingredients:\n\n" + ingredientsString);
 //
         ImageView recipeImage = (ImageView) findViewById(R.id.recipe_image);
         recipeImage.setImageResource(image);
