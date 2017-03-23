@@ -81,9 +81,6 @@ public class RecipesActivity extends AppCompatActivity {
         int index = info.position;
         Recipe selectedRecipe = recipes.get(index);
 
-
-        Log.d("context item pos:", String.valueOf(index));
-
         switch (item.getItemId()){
             case R.id.delete:
 //                Get recipe being selected
@@ -120,6 +117,7 @@ public class RecipesActivity extends AppCompatActivity {
                 Toast.makeText(this, "Recipe Deleted!", Toast.LENGTH_LONG).show();
 
             return true;
+
             case R.id.edit:
             Log.d("Context Item Selected:", "edit");
 //            add intent to edit view here. Likewise with the recipe object.
@@ -129,6 +127,8 @@ public class RecipesActivity extends AppCompatActivity {
                 editIntent.putExtra("name", selectedRecipe.getName());
                 editIntent.putExtra("method", selectedRecipe.getMethod());
                 ArrayList<Ingredient> ingredients = selectedRecipe.getIngredients();
+//              The position here is the index of the ArrayList to be edited by the edit activity and so is passed here.
+                editIntent.putExtra("position", index);
 
 //              use my method to convert ingredients to a string with each separated by a comma then pass this as an extra also
                 String ingredientsCommaString = convertArrayListToCommaSeparatedString(ingredients);
